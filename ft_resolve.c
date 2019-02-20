@@ -6,42 +6,90 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/12 09:29:04 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 19:11:34 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 10:13:30 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int			taille_map(t_all *al, char *str)
+void			ft_putsol(t_all *t, int line, int col, int a)
 {
-	int		nbr;
+	int i;
+	int j;
+	int x;
+	int y;
 
-	nbr = ft_nbr_bloc(str);
-	al->tm = ft_sqrt(nbr * 4);
-	return (al->tm);
+	x = x_pos(t, a);
+	i = line;
+	while (i < t->tm && x < 4)
+	{
+		j = col;
+		y = y_pos(t, a);
+		while (j < t->tm && y < 4)
+		{
+			if (t->tab[a].bloc[x][y] == '#' && t->map[i][j] == '.')
+				t->map[i][j] = 'A' + a;
+			j++;
+			y++;
+		}
+		i++;
+		x++;
+	}
 }
 
-void		ft_malloc_map(t_all *al)
+void		del_tet(t_all *al, int a)
 {
-	int		i;
+	int		x;
+	int		y;
 
-	i = 0;
-	if (!(al->map = (char**)ft_memalloc(sizeof(char*) * al->tm)))
-		return ;
-	while (i < al->tm)
+	x = 0;
+	while (x < al->tm)
 	{
-		al->map[i] = (char*)ft_memalloc(sizeof(char) * al->tm);
-	//	al->map[i][al->tm] = '\0';
+		y = 0;
+		while (y < al->tm)
+		{
+			if (al->map[x][y] == 'A' + a)
+				al->map[x][y] = '.';
+			y++;
+		}
+		x++;
+	}
+}
+
+int			check_place(t_all *al,int line, int col, int a)
+{
+	int 	i;
+	int 	j;
+	int 	x;
+	int 	y;
+
+	x = x_pos(al, a);
+	i = line;
+	j = col;
+	if (i + al->tab[a].y > al->tm || j + al->tab[a].x > al->tm)
+		return (0);
+	while (i < al->tm && x < 4)
+	{
+		j = col;
+		y = y_pos(al, a);
+		while (j < al->tm && y < 4)
+		{
+			if (al->map[i][j] != '.' && al->tab[a].bloc[x][y] == '#')
+				return (0);
+			j++;
+			y++;
+		}
+		x++;
 		i++;
 	}
-	al->map[i] = 0;
+	return (1);
 }
 
-void		ft_map_point(t_all *al)
+void		print_map(t_all *al)
 {
-	int		i;
-	int		j;
+	int i;
+	int j;
 
 	i = 0;
 	while (i < al->tm)
@@ -49,53 +97,33 @@ void		ft_map_point(t_all *al)
 		j = 0;
 		while (j < al->tm)
 		{
-			al->map[i][j] = '.';
+			ft_putchar(al->map[i][j]);
 			j++;
 		}
-		i++;
-	}
-}
-
-void		ft_putsol(t_all *al, int a, char c)
-{
-	int		i;
-	int		j;
-	int		x;
-	int		y;
-
-	x = x_pos(al, a);
-	y = y_pos(al, a);
-	i = 0;
-	while (i < al->tm)
-	{
-		j = 0;
-		while (j < al->tm - 1)
-		{
-			al->map[i][j] = al->tab[a].bloc[x + i][y + j];
-				if (al->map[i][j] == '#')
-					al->map[i][j] = c;
-			j++;
-		}
-		i++;
-	}
-}
-
-void		print_map(t_all *al, int a)
-{
-	char	c;
-
-	c = 'A';
-	while (a < al->nbr_bloc)
-	{
-		ft_putsol(al, a, c);
-		a++;
-		c++;
-	}
-	a = 0;
-	while (a < al->tm)
-	{
-		ft_putstr(al->map[a]);
 		ft_putchar('\n');
-		a++;
+		i++;
+	}
+}
+
+void			fill_for_norm(t_all *t, int a)
+{
+	int i;
+	int j;
+	int x;
+
+	x = 0;
+	i = -1;
+	while (++i < 4 && x < 4)
+	{
+		j = -1;
+		while (++j < 4 && x < 4)
+		{
+			if (t->tab[a].bloc[i][j] == '#')
+				x++;
+			if (t->tab[a].bloc[i][j] == '#' && t->tab[a].bloc[i][j + 1] == '#')
+				t->tab[a].x++;
+			if (t->tab[a].bloc[i][j] == '#' && t->tab[a].bloc[i + 1][j] == '#')
+				t->tab[a].y++;
+		}
 	}
 }

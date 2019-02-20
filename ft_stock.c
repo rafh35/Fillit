@@ -6,18 +6,18 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 13:30:25 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 17:35:29 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 10:11:08 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-t_parse		ft_tetri_bloc(char *str, int *x)
+t_parse			ft_tetri_bloc(char *str, int *x)
 {
-	int		i;
-	int		j;
-	t_parse p;
+	int			i;
+	int			j;
+	t_parse		p;
 
 	p.x = 0;
 	i = 0;
@@ -44,9 +44,9 @@ t_parse		ft_tetri_bloc(char *str, int *x)
 
 int				y_pos(t_all *al, int a)
 {
-	int		i;
-	int		j;
-	int		y;
+	int			i;
+	int			j;
+	int			y;
 
 	i = 0;
 	y = 4;
@@ -67,9 +67,9 @@ int				y_pos(t_all *al, int a)
 
 int				x_pos(t_all *al, int a)
 {
-	int		i;
-	int		j;
-	int		x;
+	int			i;
+	int			j;
+	int			x;
 
 	j = 0;
 	x = 4;
@@ -88,18 +88,22 @@ int				x_pos(t_all *al, int a)
 	return (x);
 }
 
-void		*stock_tet(t_all *t, char *str)
+void			*stock_tet(t_all *t, char *str)
 {
-	int		x;
-	int		i;
+	int			x;
+	int			i;
+	char		*tmp;
 
 	t->nbr_bloc = ft_nbr_bloc(str);
 	i = 0;
 	while (i < t->nbr_bloc)
 	{
 		t->tab[i] = ft_tetri_bloc(str, &x);
-		str = ft_strsub(str, x + 1, ft_strlen(str) - (x - 1));
+		tmp = str;
+		str = ft_strsub(tmp, x + 1, ft_strlen(tmp) - (x - 1));
+		free(tmp);
 		i++;
 	}
+	free(str);
 	return (t);
 }

@@ -6,31 +6,90 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 11:23:40 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 18:56:47 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 09:34:16 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int			main(int argc, char **argv)
+int			ft_solve(t_all *al, int pos, int a)
 {
-	char	*str;
-	t_all	*al;
+	int		x;
+	int		y;
 
-	al = malloc(sizeof(t_all));
-	if (argc == 2)
+	if (a == al->nbr_bloc)
+		return (1);
+	while (pos < al->tm * al->tm)
 	{
-		str = ft_strnew(1);
-		str = read_file(0, str, argv);
-		ft_check_error(str);
-		stock_tet(al, str);
-		taille_map(al, str);
-		ft_malloc_map(al);
-		ft_map_point(al);
-		print_map(al, 0);
+		x = pos / al->tm;
+		y = pos % al->tm;
+		if (check_place(al, x, y, a))
+		{
+			ft_putsol(al, x, y, a);
+			if (ft_solve(al, 0, a + 1))
+				return (1);
+			del_tet(al, a);
+		}
+		pos++;
+	}
+	return (0);
+}
+
+int			error_fillit(char *str, t_all *t)
+{
+	int		x;
+
+	x = 0;
+	if (!(ft_check_error(str)))
+	{
+		free(str);
+		return (0);
 	}
 	else
-		ft_putstr("usage: ./fillit source_file\n");
+	{
+		stock_tet(t, str);
+		while (x < t->nbr_bloc)
+		{
+			if (!(checkblock(t, x, 0)) && !(square(t, x, 0)))
+				return (0);
+			x++;
+		}
+		x = 0;
+		while (x < t->nbr_bloc)
+		{
+			fill_xy(t, x);
+			x++;
+		}
+	}
+	return (1);
+}
+
+int			main(int ac, char **av)
+{
+	int		fd;
+	char	*str;
+	int		si;
+	t_all	t;
+
+	si = 0;
+	if (ac != 2)
+	{
+		ft_putstr("usage: ./fillit tetriminos_file\n");
+		return (0);
+	}
+	str = ft_strnew(0);
+	fd = open(av[1], O_RDONLY);
+	str = read_file(fd, str, av);
+	if (!(error_fillit(str, &t)))
+		ft_putstr("error\n");
+	else
+	{
+		ft_malloc_map(&t, si);
+		while (!(ft_solve(&t, 0, 0)))
+			ft_malloc_map(&t, si++);
+		print_map(&t);
+	}
+	close(fd);
 	return (0);
 }
