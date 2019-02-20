@@ -6,19 +6,19 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/12 09:29:04 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/20 10:13:30 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 10:28:30 by moghomra    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void			ft_putsol(t_all *t, int line, int col, int a)
+void		ft_putsol(t_all *t, int line, int col, int a)
 {
-	int i;
-	int j;
-	int x;
-	int y;
+	int		i;
+	int		j;
+	int		x;
+	int		y;
 
 	x = x_pos(t, a);
 	i = line;
@@ -57,12 +57,12 @@ void		del_tet(t_all *al, int a)
 	}
 }
 
-int			check_place(t_all *al,int line, int col, int a)
+int			check_place(t_all *al, int line, int col, int a)
 {
-	int 	i;
-	int 	j;
-	int 	x;
-	int 	y;
+	int		i;
+	int		j;
+	int		x;
+	int		y;
 
 	x = x_pos(al, a);
 	i = line;
@@ -88,8 +88,8 @@ int			check_place(t_all *al,int line, int col, int a)
 
 void		print_map(t_all *al)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (i < al->tm)
@@ -105,11 +105,11 @@ void		print_map(t_all *al)
 	}
 }
 
-void			fill_for_norm(t_all *t, int a)
+void		fill_for_norm(t_all *t, int a)
 {
-	int i;
-	int j;
-	int x;
+	int		i;
+	int		j;
+	int		x;
 
 	x = 0;
 	i = -1;

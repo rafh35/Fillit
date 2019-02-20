@@ -6,16 +6,16 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/18 15:22:30 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/18 15:22:54 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 10:29:37 by moghomra    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int         ft_sqrt(int nb)
+int			ft_sqrt(int nb)
 {
-	int     i;
+	int		i;
 
 	i = 0;
 	if (nb < 0)

@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 16:29:16 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/19 18:10:46 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 10:23:10 by moghomra    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ void				print_map(t_all *al);
 int					x_pos(t_all *al, int a);
 int					y_pos(t_all *al, int a);
 void				ft_malloc_map(t_all *al, int inc);
-int					check_place(t_all *al,int x, int y, int a);
+int					check_place(t_all *al, int x, int y, int a);
 void				ft_putsol(t_all *al, int line, int col, int a);
 void				del_tet(t_all *al, int a);
 int					check_connection(t_all *al, int a);

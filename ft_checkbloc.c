@@ -6,14 +6,14 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/20 10:05:11 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/20 10:05:35 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 10:27:06 by moghomra    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		checkblock(t_all *t, int x, int b)
+int			checkblock(t_all *t, int x, int b)
 {
 	int		i;
 	int		j;
@@ -42,7 +42,7 @@ int		checkblock(t_all *t, int x, int b)
 	return (0);
 }
 
-int		square(t_all *t, int x, int b)
+int			square(t_all *t, int x, int b)
 {
 	int		i;
 	int		j;
@@ -73,8 +73,8 @@ int		square(t_all *t, int x, int b)
 
 void		size_tet(t_all *al, int a)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	al->tab[a].x = 0;
@@ -84,9 +84,11 @@ void		size_tet(t_all *al, int a)
 		j = 0;
 		while (j < 4)
 		{
-			if (al->tab[a].bloc[i][j] == '#' && al->tab[a].bloc[i + 1][j] == '#')
+			if (al->tab[a].bloc[i][j] == '#' &&
+					al->tab[a].bloc[i + 1][j] == '#')
 				al->tab[a].x++;
-			if (al->tab[a].bloc[i][j] == '#' && al->tab[a].bloc[i][j + 1] == '#')
+			if (al->tab[a].bloc[i][j] == '#' &&
+					al->tab[a].bloc[i][j + 1] == '#')
 				al->tab[a].y++;
 			j++;
 		}
@@ -94,7 +96,7 @@ void		size_tet(t_all *al, int a)
 	}
 }
 
-void			*fill_xy(t_all *al, int a)
+void		*fill_xy(t_all *al, int a)
 {
 	al->tab[a].x = 1;
 	al->tab[a].y = 1;
