@@ -6,7 +6,7 @@
 /*   By: maberkan <maberkan@student.le-101.fr>      +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/02/11 11:23:40 by maberkan     #+#   ##    ##    #+#       */
-/*   Updated: 2019/02/20 09:34:16 by maberkan    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/02/20 11:13:50 by maberkan    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -65,7 +65,21 @@ int			error_fillit(char *str, t_all *t)
 	return (1);
 }
 
-int			main(int ac, char **av)
+void		free_map(t_all t, int fd)
+{
+	int		i;
+
+	i = 0;
+	while (i < t.tm)
+	{
+		free(t.map[i]);
+		i++;
+	}
+	free(t.map);
+	close(fd);
+}
+
+int			main(int argc, char **argv)
 {
 	int		fd;
 	char	*str;
@@ -73,14 +87,14 @@ int			main(int ac, char **av)
 	t_all	t;
 
 	si = 0;
-	if (ac != 2)
+	if (argc != 2)
 	{
 		ft_putstr("usage: ./fillit tetriminos_file\n");
 		return (0);
 	}
-	str = ft_strnew(0);
-	fd = open(av[1], O_RDONLY);
-	str = read_file(fd, str, av);
+	str = ft_strnew(1);
+	fd = open(argv[1], O_RDONLY);
+	str = read_file(fd, str, argv);
 	if (!(error_fillit(str, &t)))
 		ft_putstr("error\n");
 	else
@@ -90,6 +104,6 @@ int			main(int ac, char **av)
 			ft_malloc_map(&t, si++);
 		print_map(&t);
 	}
-	close(fd);
+	free_map(t, fd);
 	return (0);
 }
